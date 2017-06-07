@@ -48,14 +48,14 @@ RSpec.describe AddressBook do
       book.remove_entry('Boba Fett', '123.456.7890', 'fake_boba@hotmail.com')
       entry_one = book.entries[0]
       entry_two = book.entries[1]
-      
+
       expect(book.entries.size).to eq(2)
       check_entry(entry_one, 'Ada Lovelace', '010.012.1815', 'augusta.king@lovelace.com')
       check_entry(entry_two, 'Boba Fett', '098.765.4321', 'fett_man@bounty.com')
     end
   end
 
-  describe "#import_from_csv" do
+  describe "#import_from_csv import from entry.csv" do
 
     it "imports the correct number of entries" do
       book.import_from_csv("entries.csv")
@@ -97,5 +97,35 @@ RSpec.describe AddressBook do
        entry_five = book.entries[4]
        check_entry(entry_five, "Sussie", "555-555-2036", "sussie@blocmail.com")
      end
+  end
+
+  describe "#import_from_csv import from entry_2.csv" do
+
+    it "imports the correct number of entries" do
+      book.import_from_csv("entries_2.csv")
+      book_size = book.entries.size
+
+      expect(book_size).to eq 3
+    end
+
+    it "imports the 1st entry" do
+       book.import_from_csv("entries_2.csv")
+       entry_one = book.entries[0]
+       # Check the first entry
+       check_entry(entry_one, "Chas", "555.555.3333", "not_a_perm@hotmail.com")
+    end
+     it "imports the 2nd entry" do
+       book.import_from_csv("entries_2.csv")
+       # Check the second entry
+       entry_two = book.entries[1]
+       check_entry(entry_two, "Margot", "555.555.2222", "too_much_eyeliner@hotmail.com")
+    end
+
+     it "imports the 3rd entry" do
+       book.import_from_csv("entries_2.csv")
+       # Check the third entry
+       entry_three = book.entries[2]
+       check_entry(entry_three, "Richie", "555.555.1111", "the_t_bomb@hotmail.com")
+    end
   end
 end
